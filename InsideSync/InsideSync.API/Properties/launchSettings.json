@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "InsideSync.API": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7267",
+      "launchBrowser": false
+    }
+  }
+}
