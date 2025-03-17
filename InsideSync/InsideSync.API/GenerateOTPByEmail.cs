@@ -19,7 +19,8 @@ namespace InsideSync.API
         [Function("GenerateOTPByEmail")]
         public async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Function, "get", Route ="otp")] HttpRequest req)
         {
-            string email = req.Query["email"];
+            string email = req.Headers["email"];// req.Query["email"];
+           
             _logger.LogInformation($"Generrate OTP By Email: {email}");
 
             if (string.IsNullOrEmpty(email))
