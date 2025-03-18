@@ -20,5 +20,10 @@ namespace InsideSync.Application.Services
         {
             return await _repository.GenerateOTPByEmailAsync(email);
         }
+
+        public async Task<string> ValidateOTPByEmailAsync(string email, string otp)
+        {
+            return await _repository.ValidateOTPByEmailAsync(email, otp);
+        }
     }
 }
