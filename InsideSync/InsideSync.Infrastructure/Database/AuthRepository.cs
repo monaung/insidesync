@@ -1,5 +1,5 @@
 ﻿using InsideSync.Application.DTOs;
-using InsideSync.Application.Interfaces;
+using InsideSync.Application.Interfaces.Authentication;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using System;
