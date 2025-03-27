@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace InsideSync.Application.Interfaces
 {
-    public interface IAuthRepository
-    {
-        Task<string> GenerateOTPByEmailAsync(string Email);
-        Task<string> ValidateOTPByEmailAsync(string Email, string OTP);
-    }
+  public interface IOtpRepository
+  {
+    Task<string> GenerateOTPByEmailAsync(string Email);
+    Task<string> ValidateOTPByEmailAsync(string Email, string OTP);
+  }
 }

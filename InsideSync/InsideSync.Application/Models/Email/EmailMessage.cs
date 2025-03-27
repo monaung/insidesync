@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace InsideSync.Application.Models.Email
 {
-    public class EmailMessage
-    {
-        public string To { get; set; }
-        public string Subject { get; set; }
-        public string Body { get; set; }
-    }
+  public class EmailMessage
+  {
+    public string To { get; set; }
+    public string Subject { get; set; }
+    public string Body { get; set; }
+  }
 }

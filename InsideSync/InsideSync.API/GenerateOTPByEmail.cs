@@ -6,34 +6,31 @@ using Microsoft.Extensions.Logging;
 
 namespace InsideSync.API
 {
-    public class GenerateOTPByEmail
+  public class GenerateOTPByEmail
+  {
+    private readonly ILogger<GenerateOTPByEmail> _logger;
+    private readonly OtpManager _otpManager;
+    public GenerateOTPByEmail(ILogger<GenerateOTPByEmail> logger, OtpManager optManager)
     {
-        private readonly ILogger<GenerateOTPByEmail> _logger;
-        private readonly AuthService _authService;
-        public GenerateOTPByEmail(ILogger<GenerateOTPByEmail> logger, AuthService authService)
-        {
-            _logger = logger;
-            _authService = authService;
-        }
-
-        [Function("GenerateOTPByEmail")]
-        public async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Function, "get", Route ="otp")] HttpRequest req)
-        {
-            string email = req.Headers["email"];// req.Query["email"];
-           
-            _logger.LogInformation($"Generrate OTP By Email: {email}");
-
-            if (string.IsNullOrEmpty(email))
-            {
-                return new UnauthorizedObjectResult(401);
-            }
-
-            var otp = await _authService.GenerateOTPByEmailAsync(email);
-
-            if(otp == "401")
-                return new UnauthorizedObjectResult(401);
-
-            return new OkObjectResult(otp);
-        }
+      _logger = logger;
+      _otpManager = optManager;
     }
+
+    [Function("GenerateOTPByEmail")]
+    public async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Function, "get", Route = "otp")] HttpRequest req)
+    {
+      string email = req.Headers["email"];// req.Query["email"];
+
+      _logger.LogInformation($"Generrate OTP By Email: {email}");
+
+      if (string.IsNullOrEmpty(email))
+      {
+        return new UnauthorizedObjectResult(401);
+      }
+
+      var otp = await _otpManager.GenerateOTPByEmailAsync(email);
+
+      return new OkObjectResult(otp);
+    }
+  }
 }

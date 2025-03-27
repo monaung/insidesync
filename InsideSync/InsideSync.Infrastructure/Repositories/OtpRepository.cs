@@ -1,5 +1,5 @@
 ﻿using InsideSync.Application.DTOs;
-using InsideSync.Application.Interfaces.Authentication;
+using InsideSync.Application.Interfaces;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -9,12 +9,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InsideSync.Infrastructure.Database
+namespace InsideSync.Infrastructure.Repositories
 {
-    public class AuthRepository : IAuthRepository
+  public class OtpRepository : IOtpRepository
     {
         private readonly string _connectionString;
-        public AuthRepository(IConfiguration configuration)
+        public OtpRepository(IConfiguration configuration)
         {
             _connectionString = Environment.GetEnvironmentVariable("DefaultConnection")!;
         }

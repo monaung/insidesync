@@ -1,17 +1,12 @@
-﻿using InsideSync.Application.Interfaces.Email;
+﻿using InsideSync.Application.Interfaces;
 using InsideSync.Application.Models.Email;
 using Microsoft.Extensions.Options;
 using SendGrid;
 using SendGrid.Helpers.Mail;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace InsideSync.Infrastructure.Email
+namespace InsideSync.Infrastructure.Services
 {
-    public class SendGridEmailSender : IEmailSender
+  public class SendGridEmailSender : IEmailService
     {
         //public EmailSetting _emailSetting { get; }
         EmailSetting _emailSetting = new EmailSetting();
@@ -34,9 +29,16 @@ namespace InsideSync.Infrastructure.Email
             };
 
             var message = MailHelper.CreateSingleEmail(from, to, email.Subject, email.Body, email.Body);
-            var response = await client.SendEmailAsync(message);
 
-            return response.IsSuccessStatusCode;
+            try
+            {
+                var response = await client.SendEmailAsync(message);
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }
