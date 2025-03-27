@@ -5,7 +5,7 @@ using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
-namespace InsideSync.API
+namespace InsideSync.API.Otp
 {
   public class ValidateOTPByEmail
   {

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 
-namespace InsideSync.API
+namespace InsideSync.API.Otp
 {
   public class GenerateOTPByEmail
   {
