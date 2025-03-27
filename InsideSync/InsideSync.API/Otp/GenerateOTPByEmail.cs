@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 
 namespace InsideSync.API.Otp
 {
@@ -21,14 +22,19 @@ namespace InsideSync.API.Otp
     {
       string email = req.Headers["email"];// req.Query["email"];
 
-      _logger.LogInformation($"Generrate OTP By Email: {email}");
+      _logger.LogInformation($"Generating OTP for: {email}");
 
       if (string.IsNullOrEmpty(email))
       {
-        return new UnauthorizedObjectResult(401);
+        return new UnauthorizedObjectResult("invalid email!");
       }
 
       var otp = await _otpManager.GenerateOTPByEmailAsync(email);
+
+      if (string.IsNullOrEmpty(otp.Code))
+      {
+        return new UnauthorizedObjectResult("otp code error!");
+      }
 
       return new OkObjectResult(otp);
     }

@@ -23,6 +23,7 @@ namespace InsideSync.Application.Services
     public async Task<Otp> GenerateOTPByEmailAsync(string email)
     {
       var otpCode = await _otpRepository.GenerateOTPByEmailAsync(email);
+
       var otp = new Otp
       {
         Email = email,
@@ -36,8 +37,8 @@ namespace InsideSync.Application.Services
         Subject = "One-time-pass code from InsideSync"
       };
 
-
-      await _emailService.SendEmail(emailMessage);
+      if(!string.IsNullOrEmpty(otp.Code))
+        await _emailService.SendEmail(emailMessage);
 
       return otp;
 

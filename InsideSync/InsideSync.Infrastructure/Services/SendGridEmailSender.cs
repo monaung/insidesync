@@ -13,9 +13,9 @@ namespace InsideSync.Infrastructure.Services
         public SendGridEmailSender(IOptions<EmailSetting> emailSetting)
         {
             //_emailSetting = emailSetting.Value;
-            _emailSetting.FromName = Environment.GetEnvironmentVariable("FromName")!;
-            _emailSetting.ApiKey = Environment.GetEnvironmentVariable("ApiKey")!;
-            _emailSetting.FromAddress = Environment.GetEnvironmentVariable("FromAddress")!; ;
+            _emailSetting.FromName = Environment.GetEnvironmentVariable("EmailFromName")!;
+            _emailSetting.ApiKey = Environment.GetEnvironmentVariable("SendGridApiKey")!;
+            _emailSetting.FromAddress = Environment.GetEnvironmentVariable("EmailFromAddress")!;
         }
         public async Task<bool> SendEmail(EmailMessage email)
         {
