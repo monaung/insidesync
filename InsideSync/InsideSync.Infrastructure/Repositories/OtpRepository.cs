@@ -47,8 +47,7 @@ namespace InsideSync.Infrastructure.Repositories
       }
       catch (Exception ex)
       {
-
-        throw;
+        throw ex;
       }
       // Execute the stored procedure
 

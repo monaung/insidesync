@@ -1,5 +1,7 @@
+using Grpc.Core;
 using InsideSync.Application.Services;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
@@ -22,21 +24,25 @@ namespace InsideSync.API.Otp
     {
       string email = req.Headers["email"];// req.Query["email"];
 
-      _logger.LogInformation($"Generating OTP for: {email}");
 
       if (string.IsNullOrEmpty(email))
       {
-        return new UnauthorizedObjectResult("invalid email!");
+        return new UnauthorizedObjectResult("Email is required.");
       }
 
-      var otp = await _otpManager.GenerateOTPByEmailAsync(email);
+      _logger.LogInformation($"Hello, Generating OTP for: {email} is on the way!");
 
-      if (string.IsNullOrEmpty(otp.Code))
+      try
       {
-        return new UnauthorizedObjectResult("otp code error!");
-      }
+        var otp = await _otpManager.GenerateOTPByEmailAsync(email);
+        return new OkObjectResult(otp);
 
-      return new OkObjectResult(otp);
+      }
+      catch (Exception ex)
+      {
+        _logger.LogError(ex, "Failed to generate or send OTP.");
+        return new UnauthorizedObjectResult(ex.Message);
+      }
     }
   }
 }
