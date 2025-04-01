@@ -15,7 +15,7 @@ namespace InsideSync.Application.Services
     private readonly IEmailService _emailService;
     private readonly IOtpRepository _otpRepository;
     private readonly ILogger<OtpManager> _logger;
-    public OtpManager(IEmailService emailService, IOtpRepository otpRepository, Logger<OtpManager> logger)
+    public OtpManager(IEmailService emailService, IOtpRepository otpRepository, ILogger<OtpManager> logger)
     {
       _emailService = emailService;
       _otpRepository = otpRepository;
